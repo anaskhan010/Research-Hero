@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 import { authMiddleware } from '../../middleware/authMiddleware.js';
 
 const createPatient = async (req, res) => {
-    const { first_name, last_name, email, password, status, gender, address, contact_number, data_of_birth, stepend, study_enrolled, notification,note } = req.body;
+    const { first_name, last_name, email, password, status, gender, address, contact_number, data_of_birth, stipend, study_enrolled, notification,note } = req.body;
 
     const hashPassword = await bcrypt.hash(password, 10);
     try {
-        const result = await patientModel.createPatient(first_name, last_name, email, hashPassword , status, gender, address, contact_number, data_of_birth, stepend, study_enrolled, notification,note );
+        const result = await patientModel.createPatient(first_name, last_name, email, hashPassword , status, gender, address, contact_number, data_of_birth, stipend, study_enrolled, notification,note );
         res.status(200).json({status: true, message: 'Patient Created Successfully', patient: result});
     } catch (error) {
         res.status(500).json({status: false, message: 'Internal Server Error',  error});
@@ -69,11 +69,11 @@ const getPatientById = async (req, res) => {
 const updatePatient = async (req, res) => {
     const patient_id = req.params.id;
    
-    const { first_name, last_name, email, password, status, gender, address, contact_number, data_of_birth, stepend, study_enrolled, notification } = req.body;
+    const { first_name, last_name, email, password, status, gender, address, contact_number, data_of_birth, stipend, study_enrolled, notification } = req.body;
 
     const hashPassword = await bcrypt.hash(password, 10);
     try {
-        const patient = await patientModel.updatePatient(patient_id, first_name, last_name, email, hashPassword, status, gender , address, contact_number, data_of_birth, stepend, study_enrolled, notification);
+        const patient = await patientModel.updatePatient(patient_id, first_name, last_name, email, hashPassword, status, gender , address, contact_number, data_of_birth, stipend, study_enrolled, notification);
         res.status(200).json({status: true, message: 'Patient Updated Successfully', patient: patient});
     }
     catch (error) {
