@@ -2,21 +2,16 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs";
 
 import patientVedioController from "../../controllers/patientVideos/patientVedioController.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const router = express.Router();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const videoPath = path.join(__dirname, "../../public/videos");
-
-if (!fs.existsSync(videoPath)) {
-  fs.mkdirSync(videoPath, { recursive: true });
-}
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    const videoPath = path.join(__dirname, "../../public/videos");
     cb(null, videoPath);
   },
   filename: function (req, file, cb) {
@@ -30,6 +25,9 @@ router.post(
   upload.single("file"),
   patientVedioController.uploadPatientVideo
 );
-router.get("/getPatientVideos", patientVedioController.getPatientVedio);
+router.get(
+  "/getPatientRecordWithVideo",
+  patientVedioController.getAllPatientVideos
+);
 
 export default router;
