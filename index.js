@@ -12,7 +12,7 @@ import authRoutes from "./routes/auth/authRoutes.js";
 import scheduleRoutes from "./routes/schedules/scheduleRoutes.js";
 import medicineRoutes from "./routes/medication/medicineRoutes.js";
 import patientVideoRoutes from "./routes/patientVideos/patientVideoRoutes.js";
-
+import surveyRoutes from "./routes/survey/surveyRoutes.js";
 // config
 dotenv.config({ path: "./config/Config.env" });
 const app = express();
@@ -36,6 +36,7 @@ app.use("/patient", patientRoutes);
 app.use("/auth", authRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/medicine", medicineRoutes);
+app.use("/survey", surveyRoutes);
 
 // Add video upload route
 app.use("/patientVideo", patientVideoRoutes);
