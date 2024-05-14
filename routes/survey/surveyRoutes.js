@@ -7,12 +7,6 @@ var express = require("express");
 
 var router = express.Router();
 
-// Get all Surveys
-router.get(
-  "/getAllSurveyResponses",
-  surveyResponseController.getAllSurveyResponses
-);
-
 // Create a new Survey
 router.post("/createSurvey", surveyController.createSurvey);
 
@@ -21,11 +15,21 @@ router.post(
   "/createSurveyResponse",
   surveyResponseController.createSurveyResponse
 );
+// Get all Surveys
+router.get(
+  "/getAllSurveyResponses",
+  surveyResponseController.getAllSurveyResponses
+);
 
 // APP patient survey routes
 router.post(
-  "/createPatientSurvey",
+  "/createAppPatientSurvey",
   organizationSurveyController.createOrganizationSurveyController
+);
+
+router.get(
+  "/getAppPatientSurvey",
+  organizationSurveyController.getAppSurveyController
 );
 
 module.exports = router;

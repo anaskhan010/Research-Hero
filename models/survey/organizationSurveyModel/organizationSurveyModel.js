@@ -35,10 +35,22 @@ const createOrganizationSurvey = (
       if (err) {
         reject(err);
       }
-      console.log("model", result);
+
       resolve(result);
     });
   });
 };
 
-module.exports = { createOrganizationSurvey };
+const getAppSurvey = () => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM app_survey`;
+    db.query(query, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+module.exports = { createOrganizationSurvey, getAppSurvey };

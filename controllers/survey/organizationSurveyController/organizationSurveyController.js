@@ -11,7 +11,6 @@ const createOrganizationSurveyController = async (req, res) => {
     drug_quantity,
     user_id,
   } = req.body;
-  console.log(req.body);
 
   try {
     const result = await organizationSurveyModel.createOrganizationSurvey(
@@ -31,4 +30,17 @@ const createOrganizationSurveyController = async (req, res) => {
   }
 };
 
-module.exports = { createOrganizationSurveyController };
+// get organizationSurveyController
+const getAppSurveyController = async (req, res) => {
+  try {
+    const result = await organizationSurveyModel.getAppSurvey();
+    res.status(200).json({ message: "Organization survey fetched", result });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = {
+  createOrganizationSurveyController,
+  getAppSurveyController,
+};
