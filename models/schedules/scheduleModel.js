@@ -48,23 +48,40 @@ var getScheduleById = function (schedule_id) {
       if (err) {
         reject(err);
       } else {
-        resolve(result);
+        resolve(result[0]);
       }
     });
   });
 };
 
-var updateSchedule = function () {
+var updateSchedule = function (
+  schedule_id,
+  schedule_date,
+  schedule_time,
+  status,
+  note,
+  user_id
+) {
+  console.log(
+    schedule_id,
+    schedule_date,
+    schedule_time,
+    status,
+    note,
+    user_id,
+    "Model"
+  );
   return new Promise(function (resolve, reject) {
     var query =
-      "UPDATE schedule SET schedule_date = ?, schedule_time = ?, status = ?, note = ? WHERE schedule_id = ?";
+      "UPDATE schedule SET schedule_date = ?, schedule_time = ?, status = ?, note = ? WHERE schedule_id = ? AND user_id = ?";
     db.query(
       query,
-      [schedule_date, schedule_time, status, note, user_id, schedule_id],
+      [schedule_date, schedule_time, status, note, schedule_id, user_id],
       function (err, result) {
         if (err) {
           reject(err);
         } else {
+          console.log(result, "Model");
           resolve(result);
         }
       }

@@ -36,7 +36,7 @@ var getNotification = function (role_id) {
           } else {
             resolve({
               notifications: notifications,
-              unread_count: countResult[0].unread_count, // Assuming countResult is an array with one object
+              unread_count: countResult[0].unread_count,
             });
           }
         });

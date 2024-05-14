@@ -46,8 +46,16 @@ var getScheduleById = function (req, res) {
 // update schedule
 var updateSchedule = function (req, res) {
   var schedule_id = req.params.id;
-  var { schedule_date, schedule_time, status, patient_id, note } = req.body;
-
+  var { schedule_date, schedule_time, status, user_id, note } = req.body;
+  console.log(
+    "Controller",
+    schedule_id,
+    schedule_date,
+    schedule_time,
+    status,
+    user_id,
+    note
+  );
   try {
     scheduleModel
       .updateSchedule(
@@ -56,7 +64,7 @@ var updateSchedule = function (req, res) {
         schedule_time,
         status,
         note,
-        patient_id
+        user_id
       )
       .then(function (result) {
         res

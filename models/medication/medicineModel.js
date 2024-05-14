@@ -44,12 +44,12 @@ var getAllMedication = function () {
 var getMedicationById = function (id) {
   return new Promise(function (resolve, reject) {
     var query =
-      "SELECT m.medication_id, m.medication_name, m.dosage, m.frequency, m.note, o.study_enrolled, o.status FROM patientmedications AS m JOIN user AS u ON m.user_id = u.user_id JOIN organization AS o ON u.user_id = o.user_id WHERE m.medication_id = ?";
+      "SELECT m.medication_id, m.medication_name, m.dosage, m.frequency, m.note,o.date_of_birth, o.gender,o.stipend,o.first_name,o.address,o.contact_number, o.study_enrolled, o.status , u.email  FROM patientmedications AS m JOIN user AS u ON m.user_id = u.user_id JOIN organization AS o ON u.user_id = o.user_id WHERE m.medication_id = ?";
     db.query(query, [id], function (error, result) {
       if (error) {
         reject(error);
       } else {
-        resolve(result);
+        resolve(result[0]);
       }
     });
   });
