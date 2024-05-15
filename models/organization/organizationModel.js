@@ -260,16 +260,16 @@ var getAllOrganizations = function () {
 };
 
 // get organization by id
-var getOrganizationById = function (organization_id) {
+var getOrganizationById = function (user_id) {
   return new Promise(function (resolve, reject) {
     var query = `
       SELECT o.*, u.email, MAX(n.note) AS note
       FROM organization AS o
       JOIN user AS u ON o.user_id = u.user_id
       JOIN note AS n ON u.user_id = n.user_id
-      WHERE o.organization_id = ?
-      GROUP BY o.organization_id`;
-    db.query(query, [organization_id], function (err, result) {
+      WHERE o.user_id = ?
+      GROUP BY o.user_id`;
+    db.query(query, [user_id], function (err, result) {
       if (err) {
         reject(err);
       } else {
@@ -327,10 +327,10 @@ var updateOrganization = function (
 };
 
 // delete organization
-var deleteOrganization = function (organization_id) {
+var deleteOrganization = function (user_id) {
   return new Promise(function (resolve, reject) {
-    var query = "DELETE FROM organization WHERE organization_id = ?";
-    db.query(query, [organization_id], function (err, result) {
+    var query = "DELETE FROM user WHERE user_id = ?";
+    db.query(query, [user_id], function (err, result) {
       if (err) {
         reject(err);
       } else {

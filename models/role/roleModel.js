@@ -24,6 +24,19 @@ const deleteRole = (role_id) => {
   });
 };
 
+// get All Roles
+const getAllRoles = () => {
+  return new Promise((resolve, reject) => {
+    const query = "SELECT * FROM role";
+    db.query(query, (error, result) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   createRole: createRole,
   deleteRole: deleteRole,

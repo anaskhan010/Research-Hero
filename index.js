@@ -16,6 +16,8 @@ var roleRoutes = require("./routes/role/roleRoutes.js");
 var surveyRoutes = require("./routes/survey/surveyRoutes.js");
 var notiificationMiddleware = require("./middleware/notificationMIddleware.js");
 const notificationRoutes = require("./routes/notification/notificationRoutes");
+var registrationStatus = require("./routes/userRegistratonManagement/userRegistrationManagementRoutes");
+
 // config
 dotenv.config({ path: "./config/Config.env" });
 notiificationMiddleware.init();
@@ -46,6 +48,8 @@ app.use("/role", roleRoutes);
 // Add video upload route
 app.use("/patientVideo", patientVideoRoutes);
 app.use("/notification", notificationRoutes);
+app.use("/registration_approval", registrationStatus);
+
 app.listen(process.env.PORT, function () {
   console.log("Server is running on port " + process.env.PORT);
 });

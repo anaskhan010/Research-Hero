@@ -123,11 +123,9 @@ var getAllOrganizations = async function (req, res) {
 
 // get organization by id
 var getOrganizationById = async function (req, res) {
-  var organization_id = req.params.id;
+  var user_id = req.params.id;
   try {
-    var organization = await organizationModel.getOrganizationById(
-      organization_id
-    );
+    var organization = await organizationModel.getOrganizationById(user_id);
     res.status(200).json({
       status: true,
       message: "Organization",
@@ -189,9 +187,9 @@ var updateOrganization = async function (req, res) {
 
 // delete organization
 var deleteOrganization = async function (req, res) {
-  var organization_id = req.params.id;
+  var user_id = req.params.id;
   try {
-    var result = await organizationModel.deleteOrganization(organization_id);
+    var result = await organizationModel.deleteOrganization(user_id);
     res
       .status(200)
       .json({ status: true, message: "Organization Deleted Successfully" });

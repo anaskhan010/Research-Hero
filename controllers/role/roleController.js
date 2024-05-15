@@ -30,7 +30,19 @@ const deleteRole = async (req, res) => {
   }
 };
 
+// get All Roles
+const getAllRoles = async (req, res) => {
+  try {
+    const result = await roleModel.getAllRoles();
+    res.status(200).json({ roles: result });
+  } catch (error) {
+    console.error("Error getting all roles:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   createRole: createRole,
   deleteRole: deleteRole,
+  getAllRoles,
 };
