@@ -43,7 +43,9 @@ const createOrganizationSurvey = (
 
 const getAppSurvey = () => {
   return new Promise((resolve, reject) => {
-    const query = `SELECT * FROM app_survey`;
+    const query = `SELECT a.*  , u.email , o.first_name, o.last_name ,o.user_id, o.study_enrolled   FROM app_survey As a
+    JOIN user As u ON a.user_id = u.user_id
+    JOIN organization AS o ON u.user_id = o.user_id;`;
     db.query(query, (err, result) => {
       if (err) {
         reject(err);
@@ -53,4 +55,19 @@ const getAppSurvey = () => {
   });
 };
 
-module.exports = { createOrganizationSurvey, getAppSurvey };
+// get survey by id
+const getSurveyById = (survey_id) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT a.*  , u.email , o.first_name, o.last_name ,o.user_id, o.study_enrolled   FROM app_survey As a
+    JOIN user As u ON a.user_id = u.user_id
+    JOIN organization AS o ON u.user_id = o.user_id WHERE app_survey_id = ?;`;
+    db.query(query, survey_id, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+module.exports = { createOrganizationSurvey, getAppSurvey, getSurveyById };

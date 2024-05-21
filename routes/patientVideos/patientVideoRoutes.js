@@ -28,4 +28,10 @@ router.get(
   patientVedioController.getAllPatientVideos
 );
 
+// get patient videos by id
+router.get(
+  "/getPatientRecordWithVideoById/:user_id",
+  patientVedioController.getAllPatientVideosByid
+);
+
 module.exports = router;

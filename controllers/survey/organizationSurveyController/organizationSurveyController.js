@@ -40,7 +40,19 @@ const getAppSurveyController = async (req, res) => {
   }
 };
 
+// get survey controller by id
+const getSurveyByIdController = async (req, res) => {
+  const survey_id = req.params.survey_id;
+  try {
+    const result = await organizationSurveyModel.getSurveyById(survey_id);
+    res.status(200).json({ message: "Survey fetched", result });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   createOrganizationSurveyController,
   getAppSurveyController,
+  getSurveyByIdController,
 };

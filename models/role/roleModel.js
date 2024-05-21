@@ -40,4 +40,5 @@ const getAllRoles = () => {
 module.exports = {
   createRole: createRole,
   deleteRole: deleteRole,
+  getAllRoles: getAllRoles,
 };

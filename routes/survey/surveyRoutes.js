@@ -1,5 +1,5 @@
-var surveyController = require("../../controllers/survey/surveyController.js");
-var surveyResponseController = require("../../controllers/survey/surveyResponseController.js");
+var surveyController = require("../../controllers/survey/incidentSurveyController.js");
+var surveyResponseController = require("../../controllers/survey/incidentSurveyResponseController.js");
 
 var organizationSurveyController = require("../../controllers/survey/organizationSurveyController/organizationSurveyController.js");
 
@@ -30,6 +30,11 @@ router.post(
 router.get(
   "/getAppPatientSurvey",
   organizationSurveyController.getAppSurveyController
+);
+
+router.get(
+  "/getAppPatientSurveyById/:survey_id",
+  organizationSurveyController.getSurveyByIdController
 );
 
 module.exports = router;
