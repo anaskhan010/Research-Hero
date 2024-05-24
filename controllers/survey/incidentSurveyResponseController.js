@@ -47,7 +47,19 @@ const getAllSurveyResponses = async (req, res) => {
   }
 };
 
+// get survey response by user_id
+const getSurveyResponseByUserId = async (req, res) => {
+  const user_id = req.params.user_id;
+  try {
+    const result = await surveyResponseModel.getSurveyResponseByUserId(user_id);
+    res.status(200).json({ message: "Survey fetched", result });
+  } catch (err) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   createSurveyResponse: createSurveyResponse,
   getAllSurveyResponses: getAllSurveyResponses,
+  getSurveyResponseByUserId: getSurveyResponseByUserId,
 };

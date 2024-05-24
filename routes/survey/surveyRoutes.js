@@ -21,7 +21,13 @@ router.get(
   surveyResponseController.getAllSurveyResponses
 );
 
-// APP patient survey routes
+// get survey response by user_id
+router.get(
+  "/getSurveyResponseByUserId/:user_id",
+  surveyResponseController.getSurveyResponseByUserId
+);
+
+// =================== APP patient survey routes============================
 router.post(
   "/createAppPatientSurvey",
   organizationSurveyController.createOrganizationSurveyController
@@ -33,8 +39,15 @@ router.get(
 );
 
 router.get(
-  "/getAppPatientSurveyById/:survey_id",
+  "/getAppPatientSurveyById/:user_id",
   organizationSurveyController.getSurveyByIdController
+);
+
+// =================== APP patient survey routes============================
+
+router.post(
+  "/createAppSurveyQuestion",
+  organizationSurveyController.createAppSurveyQuestions
 );
 
 module.exports = router;

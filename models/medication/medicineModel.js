@@ -55,6 +55,23 @@ var getMedicationById = function (id) {
   });
 };
 
+// get medication by user id
+var getMedicationByUserId = function (id) {
+  return new Promise(function (resolve, reject) {
+    var query = `
+      SELECT m.medication_id, m.medication_name, m.dosage, m.frequency, m.note
+      FROM patientmedications AS m
+      WHERE m.user_id = ?
+      `;
+    db.query(query, [id], function (error, result) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
 // update medication
 var updateMedication = function (id, medication_name, dosage, frequency, note) {
   return new Promise(function (resolve, reject) {
@@ -92,6 +109,7 @@ module.exports = {
   createMedicine: createMedicine,
   getAllMedication: getAllMedication,
   getMedicationById: getMedicationById,
+  getMedicationByUserId: getMedicationByUserId,
   updateMedication: updateMedication,
   deleteMedication: deleteMedication,
 };

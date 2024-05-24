@@ -41,6 +41,17 @@ var getMedicationById = async function (req, res) {
   }
 };
 
+// GET medication by user id
+var getMedicationByUserId = async function (req, res) {
+  var id = req.params.id;
+  try {
+    var result = await medicineModel.getMedicationByUserId(id);
+    res.status(200).json({ medication: result });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // update medication
 var updateMedication = async function (req, res) {
   var id = req.params.medication_id;
@@ -50,10 +61,6 @@ var updateMedication = async function (req, res) {
     frequency = _req$body2.frequency,
     note = _req$body2.note;
 
-  console.log(
-    "---------------Controller update medication --------------------"
-  );
-  console.log(id, medication_name, dosage, frequency, note);
   try {
     var result = await medicineModel.updateMedication(
       id,
@@ -82,6 +89,7 @@ module.exports = {
   createMedicine: createMedicine,
   getAllMedication: getAllMedication,
   getMedicationById: getMedicationById,
+  getMedicationByUserId: getMedicationByUserId,
   updateMedication: updateMedication,
   deleteMedication: deleteMedication,
 };

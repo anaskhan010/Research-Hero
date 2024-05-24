@@ -45,7 +45,22 @@ var getNotification = function (role_id) {
   });
 };
 
+// update status as read model
+var updateNotification = function (notification_id) {
+  return new Promise(function (resolve, reject) {
+    var notificationQuery =
+      "UPDATE notification SET status = 'read' WHERE notification_id = ?";
+    db.query(notificationQuery, [notification_id], function (err, result) {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   createNotification,
   getNotification,
+  updateNotification,
 };

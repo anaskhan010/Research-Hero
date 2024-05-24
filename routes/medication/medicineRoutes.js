@@ -6,6 +6,10 @@ var router = express.Router();
 router.post("/createMedicine", medicineController.createMedicine);
 router.get("/getAllMedication", medicineController.getAllMedication);
 router.get("/getMedicationById/:id", medicineController.getMedicationById);
+router.get(
+  "/getMedicationByUserId/:id",
+  medicineController.getMedicationByUserId
+);
 router.put(
   "/updateMedication/:medication_id",
   medicineController.updateMedication

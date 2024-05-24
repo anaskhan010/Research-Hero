@@ -2,6 +2,7 @@ var patientVideoModel = require("../../models/patientVideos/patientVideoModel.js
 
 var uploadPatientVideo = function (req, res) {
   var user_id = req.body.user_id;
+  var medication_id = req.body.medication_id;
   try {
     var file = req.file;
     if (!file) {
@@ -10,7 +11,7 @@ var uploadPatientVideo = function (req, res) {
     var filePath = "/videos/" + file.filename;
 
     patientVideoModel
-      .createPatientVideo(user_id, filePath)
+      .createPatientVideo(user_id, filePath, medication_id)
       .then(function () {
         res.send("Video uploaded successfully.");
       })
@@ -81,8 +82,11 @@ var getAllPatientVideosByid = function (req, res) {
                 user_id: video.user_id, // Assuming user_id corresponds to patient_id
                 first_name: video.first_name,
                 last_name: video.last_name,
+                medication_name: video.medication_name,
+                dosage: video.dosage,
+                frequency: video.frequency,
+                medication_note: video.medication_Note,
                 email: video.email,
-                note: video.note,
                 video_url: decryptedPath,
               };
             })

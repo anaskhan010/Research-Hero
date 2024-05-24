@@ -44,6 +44,19 @@ const createSurvey = (survey_title, question_text) => {
   });
 };
 
+// get survey by survey_id
+const getSurveyById = (survey_id) => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM survey WHERE survey_id = ?`;
+    db.query(query, [survey_id], (error, result) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(result);
+    });
+  });
+};
+
 module.exports = {
   createSurvey: createSurvey,
 };
