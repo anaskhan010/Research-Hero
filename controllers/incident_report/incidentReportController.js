@@ -20,6 +20,19 @@ const createIncidentReport = async (req, res) => {
   }
 };
 
+// get all incident reports Questions
+const getAllIncidentReports = async (req, res) => {
+  try {
+    const results = await IncidentReportModel.getAllIncidentReports();
+    res.status(200).json({
+      message: "Survey fetched successfully",
+      surveys: results,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 // create incident report response
 const createIncidentReportResponse = async (req, res) => {
   const survey_id = req.body.survey_id;
@@ -84,6 +97,7 @@ const getIncidentReportResponseByUserId = async (req, res) => {
 
 module.exports = {
   createIncidentReport,
+  getAllIncidentReports,
   createIncidentReportResponse,
   getAllIncidentReportResponses,
   getIncidentReportResponseByUserId,

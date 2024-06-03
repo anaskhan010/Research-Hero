@@ -10,6 +10,12 @@ router.post(
   incidentReportController.createIncidentReport
 );
 
+// Get all Surveys Questions
+router.get(
+  "/getAllIncidentReportsQuestions",
+  incidentReportController.getAllIncidentReports
+);
+
 // survey response routes
 router.post(
   "/createIncidentReportResponse",

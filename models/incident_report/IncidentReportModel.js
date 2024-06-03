@@ -44,6 +44,20 @@ const createIncidentReportQuestion = (survey_title, question_text) => {
   });
 };
 
+// get all incident reports Questions
+const getAllIncidentReports = () => {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT sur.* , s.survey_title FROM survey_question AS sur
+    JOIN survey AS s ON sur.survey_id = s.survey_id`;
+    db.query(query, (error, result) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(result);
+    });
+  });
+};
+
 // get survey by survey_id
 const getIncidentReportById = (survey_id) => {
   return new Promise((resolve, reject) => {
@@ -143,6 +157,7 @@ const getIncidentReportResponseByUserId = (user_id) => {
 
 module.exports = {
   createIncidentReportQuestion,
+  getAllIncidentReports,
   getIncidentReportById,
   createIncidentReportResponse,
   getIncidentReportResponseByUserId,

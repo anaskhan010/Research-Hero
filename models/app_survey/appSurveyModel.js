@@ -4,15 +4,34 @@ const db = require("../../config/DBConnection");
 const getAllSurveys = () => {
   return new Promise((resolve, reject) => {
     const query = `
-    SELECT s.app_survey_id, s.drug_name, s.date, s.drug_size, s.drug_dosage, s.drug_percentage, s.drug_quantity, s.user_id,
-    q.app_survey_question, r.app_survey_response,
-    u.email, o.first_name, o.last_name, o.status, o.gender, o.address, o.contact_number, o.date_of_birth, o.stipend, o.study_enrolled,
-    o.organization_detail_id, o.organization_id, o.notification
-FROM app_survey s
-LEFT JOIN app_survey_question_responses r ON s.user_id = r.user_id
-LEFT JOIN app_survey_questions q ON r.app_survey_question_id = q.app_survey_question_id
-LEFT JOIN user u ON s.user_id = u.user_id
-LEFT JOIN organization o ON u.user_id = o.user_id;
+    WITH CTE AS (
+      SELECT 
+          s.app_survey_id, s.drug_name, s.date, s.drug_size, s.drug_dosage, s.drug_percentage, s.drug_quantity, s.user_id,
+          q.app_survey_question, r.app_survey_response,
+          u.email, o.first_name, o.last_name, o.status, o.gender, o.address, o.contact_number, o.date_of_birth, o.stipend, o.study_enrolled,
+          o.organization_detail_id, o.organization_id, o.notification,
+          ROW_NUMBER() OVER (PARTITION BY s.user_id ORDER BY s.date DESC) AS rn
+      FROM 
+          app_survey s
+      LEFT JOIN 
+          app_survey_question_responses r ON s.user_id = r.user_id
+      LEFT JOIN 
+          app_survey_questions q ON r.app_survey_question_id = q.app_survey_question_id
+      LEFT JOIN 
+          user u ON s.user_id = u.user_id
+      LEFT JOIN 
+          organization o ON u.user_id = o.user_id
+  )
+  SELECT
+      app_survey_id, drug_name, date, drug_size, drug_dosage, drug_percentage, drug_quantity, user_id,
+      app_survey_question, app_survey_response,
+      email, first_name, last_name, status, gender, address, contact_number, date_of_birth, stipend, study_enrolled,
+      organization_detail_id, organization_id, notification
+  FROM 
+      CTE
+  WHERE 
+      rn = 1;
+  ;
     `;
     db.query(query, (err, results) => {
       if (err) {
